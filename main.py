@@ -10,7 +10,7 @@ import pytesseract
 
 # root.mainloop()
 
-#Hiii
+#Hiii!!!
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 root = Tk()
