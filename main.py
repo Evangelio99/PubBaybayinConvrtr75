@@ -10,6 +10,8 @@ import pytesseract
 
 # root.mainloop()
 
+#Hiii
+
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 root = Tk()
 root.title('TechVidvan Text from image project')
