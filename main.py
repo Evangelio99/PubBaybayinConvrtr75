@@ -167,7 +167,7 @@ navbarBtn = Button(topFrame, image=navIcon, bg="white", activebackground="#1cbdb
 navbarBtn.place(x=10, y=10)
 
 # setting Navbar frame:
-navRoot = Frame(root, bg="white", height=1000, width=300)
+navRoot = Frame(root, bg="#cecece", height=1000, width=300)
 navRoot.place(x=-300, y=0)
 Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
 
@@ -175,11 +175,11 @@ Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=30
 y = 80
 
 # option in the navbar:
-options = ["Profile", "Settings", "Help", "About", "Feedback"]
+options = ["Home", "Settings", "Help", "About", "Feedback"]
 
 # Navbar Option Buttons:
 for i in range(5):
-    Button(navRoot, text=options[i], font="BahnschriftLight 15", bg="white", fg="#1cbdbd", activebackground="#9c9c9c", activeforeground="green", bd=0).place(x=25, y=y)
+    Button(navRoot, text=options[i], font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0).place(x=25, y=y)
     y += 40
 
 # Navbar Close Button:
