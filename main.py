@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk, Image
 import cv2
+from numpy import left_shift
 import pytesseract
 from tkinter import PhotoImage
 from tkinter.filedialog import askopenfile
@@ -65,11 +66,18 @@ uploaded_img=Label(root)
 def upload():
     try:
         path=filedialog.askopenfilename()
+        # open image 
         image=Image.open(path)
-        img=ImageTk.PhotoImage(image)
-        uploaded_img.place(x=70,y=485)
+
+        # resize image
+        resized = image.resize((400, 317), Image.ANTIALIAS)
+
+        img=ImageTk.PhotoImage(resized)
         uploaded_img.configure(image=img)
+        uploaded_img.configure(background="white")
         uploaded_img.image=img
+        uploaded_img.place(x=22,y=405)
+
         show_extract_button(path)
     except:
         pass 
@@ -89,6 +97,7 @@ def extract(path):
     texts = pytesseract.image_to_data(Sample_img) 
     mytext=""
     prevy=0
+    newl = 500
     for cnt,text in enumerate(texts.splitlines()):
         if cnt==0:
             continue
@@ -99,13 +108,15 @@ def extract(path):
                 prey=y
             if(prevy-y>=10 or y-prevy>=10):
                 print(mytext)
-                Label(root,text=mytext,font=('Times',15,'bold')).pack()
-                #first=Label(root,text=mytext,font=('Times',15,'bold'))
+                #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=15, side=RIGHT)
+                Label(root,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
                 mytext=""
-                #first.place(x=600,y=500)
+                newl += 30
             mytext = mytext + text[11]+" "
             prevy=y
-    Label(root,text=mytext,font=('Times',15,'bold')).pack()
+    print(mytext)
+    Label(root,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
+    #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
 
 # upload button
 uploadbtn = Button(root,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'))
