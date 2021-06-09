@@ -4,11 +4,11 @@ import cv2
 import os
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
-#import tensorflow as tf
-#import tensorflow.keras as tfk
-#from sklearn.preprocessing import OneHotEncoder
-#from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import tensorflow.keras as tfk
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.model_selection import train_test_split
 
 input_shape = (64,64)
 
@@ -40,7 +40,7 @@ def extract_pixels(filename):
         image_res = cv2.cvtColor(image_res)
     return image_res / 255.0
 
-#loading all images from dataset
+#loading all images from dataset and extracting their pixels
 def load_all_images(directory):
     X_raw = []
     Y_raw = []
@@ -55,4 +55,66 @@ def load_all_images(directory):
 
     return X_raw, Y_raw
 
+#assigning the image matrix and their respective label encoding in a list
 X_raw, Y_raw = load_all_images(directory='Baybayin-Handwritten-Character-Dataset/raw')
+
+#visualization of data
+
+def display_image(image):
+    plt.figure()
+    plt.imshow(image, cmap=plt.cm.binary)
+    plt.grid(False)
+    plt.show()
+
+#preprocessing of data
+X_data = np.asarray(X_raw)
+Y_data = np.asarray(Y_raw).reshape((-1,1))
+
+#one hot encoding
+def one_hot_encoding(data):
+    return OneHotEncoder().fit_transform(data).toarray()
+
+Y_data = one_hot_encoding(Y_data)
+print(Y_data.shape)
+
+#argmax
+
+def argmax(probability_logits):
+    return np.argmax(probability_logits)
+
+#splitting the dataset into training set and test set
+X_train, X_test, Y_train, Y_test = train_test_split(X_data, Y_data, test_size=0.20, random_state=0)
+
+#building the ML model
+model = tfk.Sequential([
+    tfk.layers.Flatten(input_shape = input_shape),
+    tfk.layers.Dense(1024, activation='relu'),
+    tfk.layers.Dense(256, activation='relu'),
+    tfk.layers.Dense(64, activation='relu'),
+    tfk.layers.Dense(19, activation='softmax'),
+])
+
+#compiling the ML model
+model.compile(optimizer='Adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+#training the model
+early_stopping = tfk.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+
+history = model.fit(X_train, Y_train,
+                    epochs=100,
+                    validation_split=0.2,
+                    callbacks=[early_stopping])
+
+#testing
+test_loss, test_acc = model.evaluate(X_test, Y_test, verbose=2)
+
+def neural_net_prediction(image):
+    return model.predict(np.expand_dims(image, axis=0))
+
+def predict(filename):
+    return decode_label(argmax(neural_net_prediction(extract_pixels(filename))))
+
+#saving the model that has the best accuracy
+model.save('baybayin.h5')
