@@ -109,7 +109,7 @@ def extract(path):
     texts = pytesseract.image_to_data(Sample_img) 
     mytext=""
     prevy=0
-    newl = 500
+    newl = 420
     for cnt,text in enumerate(texts.splitlines()):
         if cnt==0:
             continue
