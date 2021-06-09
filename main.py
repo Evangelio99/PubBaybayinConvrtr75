@@ -40,17 +40,18 @@ navIcon = PhotoImage(file="menu.png")
 closeIcon = PhotoImage(file="close.png")
 uploadbtn1 = PhotoImage(file="uploadbtn.png")
 extractbtn1= PhotoImage(file="extractbtn.png")
+logoleft = PhotoImage(file="baybayin.png")
+logoright = PhotoImage(file="icon.png")
 box = PhotoImage(file="box.png")
 
 # declaring new var for images for placing
 upload_label = Label(image=uploadbtn1)
 extract_label = Label(image=extractbtn1)
+
 box_label = Label(image=box)
 box_label.place(x=15,y=360)
 
-# instruction label
-instructions = Label(root, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
-instructions.place(x=280,y=270)
+
 
 # logo
 logo = Image.open('logo.png')
@@ -58,6 +59,10 @@ logo = ImageTk.PhotoImage(logo)
 logo_label = Label(image=logo)
 logo_label.image = logo
 logo_label.place(x=312,y=100)
+
+# instruction label
+instructions = Label(root, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
+instructions.place(x=280,y=250)
 
 # vars
 newline= Label(root)
@@ -169,12 +174,16 @@ topFrame = Frame(root, bg="white")
 topFrame.pack(side="top", fill=X)
 
 # header label text:
-homeLabel = Label(topFrame, text="Baybayin Converter", font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
+homeLabel = Label(topFrame, font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
 homeLabel.pack(side="right")
 
 # header label text:
-homeLabel1 = Label(topFrame, text="        LOGO", font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
+homeLabel1 = Label(topFrame, text="        BAYBAYIN TRANSLATOR", font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
 homeLabel1.pack(side="left")
+#logo_left = Label(topFrame, image=logoleft, bg="white")
+#logo_left.place(x=50,y=8)
+logo_right = Label(topFrame, image=logoright, bg="white")
+logo_right.place(x=840,y=8)
 
 # main label text:
 #brandLabel = Label(root, font="System 30", bg="#f0f0f0", fg="green")
