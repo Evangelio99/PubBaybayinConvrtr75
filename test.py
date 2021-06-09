@@ -1,4 +1,5 @@
-from main import extract
+#contains all of the methods used, from creating the ML model and the functions for image processing of input
+
 from PIL import Image
 import cv2
 import os
@@ -112,6 +113,8 @@ test_loss, test_acc = model.evaluate(X_test, Y_test, verbose=2)
 
 def neural_net_prediction(image):
     return model.predict(np.expand_dims(image, axis=0))
+
+#predict function to use
 
 def predict(filename):
     return decode_label(argmax(neural_net_prediction(extract_pixels(filename))))
