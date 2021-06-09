@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+import tkinter
 from PIL import ImageTk, Image
 import cv2
 from numpy import left_shift
@@ -62,6 +63,7 @@ logo_label.place(x=312,y=100)
 newline= Label(root)
 uploaded_img=Label(root)
 
+
 # uploading of picture
 def upload():
     try:
@@ -78,15 +80,20 @@ def upload():
         uploaded_img.image=img
         uploaded_img.place(x=22,y=405)
 
-        show_extract_button(path)
+        # show_extract_button(path)
+        extractBtn["state"] = tkinter.NORMAL
+        extractBtn["command"] = lambda: extract(path)
+
     except:
         pass 
 
 # extract button
-def show_extract_button(path):
-    extractBtn= Button(root,image=extractbtn1,command=lambda: extract(path),fg="gray", borderwidth=0,font=('Times',15,'bold'))
-    extractBtn.place(x=600,y=300)
+# def show_extract_button(path):
+# extractBtn = Button(root,image=extractbtn1,command=lambda: extract(path),fg="gray", borderwidth=0,font=('Times',15,'bold'))
+# extractBtn.place(x=600,y=300)
 
+extractBtn = Button(root,image=extractbtn1,state=tkinter.DISABLED, fg="gray", borderwidth=0,font=('Times',15,'bold'))
+extractBtn.place(x=600,y=300)
 
 # extraction
 def extract(path):
