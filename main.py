@@ -41,7 +41,7 @@ closeIcon = PhotoImage(file="close.png")
 uploadbtn1 = PhotoImage(file="uploadbtn.png")
 extractbtn1= PhotoImage(file="extractbtn.png")
 logoleft = PhotoImage(file="baybayin.png")
-logoright = PhotoImage(file="icon.png")
+logoright = PhotoImage(file="iconright.png")
 box = PhotoImage(file="box.png")
 
 # declaring new var for images for placing
@@ -183,7 +183,7 @@ homeLabel1.pack(side="left")
 #logo_left = Label(topFrame, image=logoleft, bg="white")
 #logo_left.place(x=50,y=8)
 logo_right = Label(topFrame, image=logoright, bg="white")
-logo_right.place(x=840,y=8)
+logo_right.place(x=810,y=10)
 
 # main label text:
 #brandLabel = Label(root, font="System 30", bg="#f0f0f0", fg="green")
@@ -202,10 +202,10 @@ Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=30
 y = 80
 
 # option in the navbar:
-options = ["Home", "Settings", "Help", "About", "Feedback"]
+options = ["Home", "Settings", "Help", "About"]
 
 # Navbar Option Buttons:
-for i in range(5):
+for i in range(4):
     Button(navRoot, text=options[i], font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0).place(x=25, y=y)
     y += 40
 
