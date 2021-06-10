@@ -38,7 +38,7 @@ def extract_pixels(filename):
                           dsize=input_shape,
                           interpolation=cv2.INTER_CUBIC)
     if len(image_res.shape) == 3:
-        image_res = cv2.cvtColor(image_res)
+        image_res = cv2.cvtColor(image_res, cv2.COLOR_BGR2GRAY)
     return image_res / 255.0
 
 #loading all images from dataset and extracting their pixels
