@@ -8,7 +8,7 @@ import pytesseract
 from tkinter import PhotoImage
 from tkinter.filedialog import askopenfile
 
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Kin\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
 
 root = Tk()
 
