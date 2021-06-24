@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import filedialog
+import tkinter
 from PIL import ImageTk, Image
 import cv2
+from numpy import left_shift
 import pytesseract
 from tkinter import PhotoImage
 from tkinter.filedialog import askopenfile
@@ -38,17 +40,18 @@ navIcon = PhotoImage(file="menu.png")
 closeIcon = PhotoImage(file="close.png")
 uploadbtn1 = PhotoImage(file="uploadbtn.png")
 extractbtn1= PhotoImage(file="extractbtn.png")
+logoleft = PhotoImage(file="baybayin.png")
+logoright = PhotoImage(file="iconright.png")
 box = PhotoImage(file="box.png")
 
 # declaring new var for images for placing
 upload_label = Label(image=uploadbtn1)
 extract_label = Label(image=extractbtn1)
+
 box_label = Label(image=box)
 box_label.place(x=15,y=360)
 
-# instruction label
-instructions = Label(root, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
-instructions.place(x=280,y=270)
+
 
 # logo
 logo = Image.open('logo.png')
@@ -57,28 +60,45 @@ logo_label = Label(image=logo)
 logo_label.image = logo
 logo_label.place(x=312,y=100)
 
+# instruction label
+instructions = Label(root, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
+instructions.place(x=280,y=250)
+
 # vars
 newline= Label(root)
 uploaded_img=Label(root)
+
 
 # uploading of picture
 def upload():
     try:
         path=filedialog.askopenfilename()
+        # open image 
         image=Image.open(path)
-        img=ImageTk.PhotoImage(image)
-        uploaded_img.place(x=70,y=485)
+
+        # resize image
+        resized = image.resize((400, 317), Image.ANTIALIAS)
+
+        img=ImageTk.PhotoImage(resized)
         uploaded_img.configure(image=img)
+        uploaded_img.configure(background="white")
         uploaded_img.image=img
-        show_extract_button(path)
+        uploaded_img.place(x=22,y=405)
+
+        # show_extract_button(path)
+        extractBtn["state"] = tkinter.NORMAL
+        extractBtn["command"] = lambda: extract(path)
+
     except:
         pass 
 
 # extract button
-def show_extract_button(path):
-    extractBtn= Button(root,image=extractbtn1,command=lambda: extract(path),fg="gray", borderwidth=0,font=('Times',15,'bold'))
-    extractBtn.place(x=600,y=300)
+# def show_extract_button(path):
+# extractBtn = Button(root,image=extractbtn1,command=lambda: extract(path),fg="gray", borderwidth=0,font=('Times',15,'bold'))
+# extractBtn.place(x=600,y=300)
 
+extractBtn = Button(root,image=extractbtn1,state=tkinter.DISABLED, fg="gray", borderwidth=0,font=('Times',15,'bold'))
+extractBtn.place(x=600,y=300)
 
 # extraction
 def extract(path):
@@ -89,6 +109,7 @@ def extract(path):
     texts = pytesseract.image_to_data(Sample_img) 
     mytext=""
     prevy=0
+    newl = 420
     for cnt,text in enumerate(texts.splitlines()):
         if cnt==0:
             continue
@@ -99,13 +120,15 @@ def extract(path):
                 prey=y
             if(prevy-y>=10 or y-prevy>=10):
                 print(mytext)
-                Label(root,text=mytext,font=('Times',15,'bold')).pack()
-                #first=Label(root,text=mytext,font=('Times',15,'bold'))
+                #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=15, side=RIGHT)
+                Label(root,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
                 mytext=""
-                #first.place(x=600,y=500)
+                newl += 30
             mytext = mytext + text[11]+" "
             prevy=y
-    Label(root,text=mytext,font=('Times',15,'bold')).pack()
+    print(mytext)
+    Label(root,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
+    #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
 
 # upload button
 uploadbtn = Button(root,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'))
@@ -151,12 +174,16 @@ topFrame = Frame(root, bg="white")
 topFrame.pack(side="top", fill=X)
 
 # header label text:
-homeLabel = Label(topFrame, text="Baybayin Converter", font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
+homeLabel = Label(topFrame, font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
 homeLabel.pack(side="right")
 
 # header label text:
-homeLabel1 = Label(topFrame, text="        LOGO", font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
+homeLabel1 = Label(topFrame, text="        BAYBAYIN TRANSLATOR", font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
 homeLabel1.pack(side="left")
+#logo_left = Label(topFrame, image=logoleft, bg="white")
+#logo_left.place(x=50,y=8)
+logo_right = Label(topFrame, image=logoright, bg="white")
+logo_right.place(x=810,y=10)
 
 # main label text:
 #brandLabel = Label(root, font="System 30", bg="#f0f0f0", fg="green")
@@ -167,7 +194,7 @@ navbarBtn = Button(topFrame, image=navIcon, bg="white", activebackground="#1cbdb
 navbarBtn.place(x=10, y=10)
 
 # setting Navbar frame:
-navRoot = Frame(root, bg="white", height=1000, width=300)
+navRoot = Frame(root, bg="#cecece", height=1000, width=300)
 navRoot.place(x=-300, y=0)
 Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
 
@@ -175,11 +202,11 @@ Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=30
 y = 80
 
 # option in the navbar:
-options = ["Profile", "Settings", "Help", "About", "Feedback"]
+options = ["Home", "Settings", "Help", "About"]
 
 # Navbar Option Buttons:
-for i in range(5):
-    Button(navRoot, text=options[i], font="BahnschriftLight 15", bg="white", fg="#1cbdbd", activebackground="#9c9c9c", activeforeground="green", bd=0).place(x=25, y=y)
+for i in range(4):
+    Button(navRoot, text=options[i], font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0).place(x=25, y=y)
     y += 40
 
 # Navbar Close Button:
