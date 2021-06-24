@@ -50,5 +50,5 @@ def neural_net_prediction(image):
 def predict(filename):
     return decode_label(argmax(neural_net_prediction(extract_pixels(filename))))
 
-print(predict('sampletest.jpg'))
+# print(predict('sampletest.jpg'))
 

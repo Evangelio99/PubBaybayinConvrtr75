@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+import tkinter
 from PIL import ImageTk, Image
 import tensorflow as tf
 import numpy as np
@@ -12,6 +13,7 @@ root.title('Baybayin Image Translator')
 root.geometry('800x600')
 newline= Label(root)
 uploaded_img=Label(root)
+processed_img=Label(root) 
 scrollbar = Scrollbar(root)
 scrollbar.pack( side = RIGHT, fill = Y )
 
@@ -37,8 +39,9 @@ def decode_label(i):
 
 #extracting pixels function
 def extract_pixels(filename):
-    image_pil = Image.open(filename)
-    image_np = np.asarray(image_pil)
+    # image_pil = Image.open(filename)
+    # image_np = np.asarray(image_pil)
+    image_np = np.asarray(filename)
     image_res = cv2.resize(image_np,
                           dsize=input_shape,
                           interpolation=cv2.INTER_CUBIC)
@@ -62,12 +65,40 @@ def predict(filename):
 
 #for buttons and classification
 def classify(path):
-    extracted_text = predict(path)
-    Label(root,text=extracted_text,font=('Times',32,'bold')).pack()
+    image = cv2.imread(path)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (7,7), 0)
+    thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1] 
+    kernal = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 13))
+    dilate = cv2.dilate(thresh, kernal, iterations=1)
+
+    contours, hierarchy = cv2.findContours(dilate,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE) 
+
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area > 10:
+            x,y,w,h = cv2.boundingRect(cnt)
+            crop_img = image[y:y+h, x:x+w]
+            cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 2)
+            cv2.putText(image, predict(crop_img), (x,y+h + 13), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (50, 205, 50), 1)
+        # plt.imshow(crop_img)
+        # plt.show()
+
+
+    img = Image.fromarray(image)
+    imgtk = ImageTk.PhotoImage(image=img)
+    processed_img.configure(image=imgtk)
+    processed_img.image=imgtk
+    processed_img.pack()
+    # cv2.imshow('image', image)
+    # cv2.waitKey()
+    # extracted_text = predict(path)
+    # Label(root,text=extracted_text,font=('Times',32,'bold')).pack()
 
 def show_extract_button(path):
     extractBtn= Button(root,text="Extract text",command=lambda: classify(path),bg="#2f2f77",fg="gray",pady=15,padx=15,font=('Times',15,'bold'))
     extractBtn.pack()  
+
 def upload():
     try:
         path=filedialog.askopenfilename()
@@ -78,6 +109,7 @@ def upload():
         show_extract_button(path)
     except:
         pass  
+
 uploadbtn = Button(root,text="Upload an image",command=upload,bg="#2f2f77",fg="gray",height=2,width=20,font=('Times',15,'bold')).pack()
 newline.configure(text='\n')
 newline.pack()
