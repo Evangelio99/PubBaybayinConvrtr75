@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 import tkinter
+import tkinter as tk
 from PIL import ImageTk, Image
 import cv2
 from numpy import left_shift
@@ -10,24 +11,28 @@ from tkinter.filedialog import askopenfile
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
-root = Tk()
+def show_frame(frame):
+    frame.tkraise()
+
+#window = Tk()
+window = tk.Tk()
 
 # window
-#root.geometry('900x750') #w x h
+#window.geometry('900x750') #w x h
 width_of_window=900
 height_of_window=750
-screen_width=root.winfo_screenwidth()
-screen_height=root.winfo_height()
+screen_width=window.winfo_screenwidth()
+screen_height=window.winfo_height()
 x_coordinate=(screen_width/2)-(width_of_window/2)
 y_coordinate=(screen_height/2)-(height_of_window/2)+395
-root.geometry("%dx%d+%d+%d"%(width_of_window,height_of_window,x_coordinate,y_coordinate))
-root.title('Baybayin Image Translator')
+window.geometry("%dx%d+%d+%d"%(width_of_window,height_of_window,x_coordinate,y_coordinate))
+window.title('Baybayin Image Translator')
 icn=PhotoImage(file="icon.png")
-root.iconphoto(False,icn)
-root.resizable(False, False) # para mawala yung full screen button hehe
-scrollbar = Scrollbar(root)
+window.iconphoto(False,icn)
+window.resizable(False, False) # para mawala yung full screen button hehe
+scrollbar = Scrollbar(window)
 scrollbar.pack( side = RIGHT, fill = Y )
-#root.configure(bg='blue')
+#window.configure(bg='blue')
 
 # dictionary of colors:
 color = {"nero": "#252726", "orange": "#FF8700", "darkorange": "#FE6101"}
@@ -61,12 +66,12 @@ logo_label.image = logo
 logo_label.place(x=312,y=100)
 
 # instruction label
-instructions = Label(root, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
+instructions = Label(window, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
 instructions.place(x=280,y=250)
 
 # vars
-newline= Label(root)
-uploaded_img=Label(root)
+newline= Label(window)
+uploaded_img=Label(window)
 
 
 # uploading of picture
@@ -94,10 +99,10 @@ def upload():
 
 # extract button
 # def show_extract_button(path):
-# extractBtn = Button(root,image=extractbtn1,command=lambda: extract(path),fg="gray", borderwidth=0,font=('Times',15,'bold'))
+# extractBtn = Button(window,image=extractbtn1,command=lambda: extract(path),fg="gray", borderwidth=0,font=('Times',15,'bold'))
 # extractBtn.place(x=600,y=300)
 
-extractBtn = Button(root,image=extractbtn1,state=tkinter.DISABLED, fg="gray", borderwidth=0,font=('Times',15,'bold'))
+extractBtn = Button(window,image=extractbtn1,state=tkinter.DISABLED, fg="gray", borderwidth=0,font=('Times',15,'bold'))
 extractBtn.place(x=600,y=300)
 
 # extraction
@@ -120,18 +125,18 @@ def extract(path):
                 prey=y
             if(prevy-y>=10 or y-prevy>=10):
                 print(mytext)
-                #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=15, side=RIGHT)
-                Label(root,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
+                #Label(window,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=15, side=RIGHT)
+                Label(window,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
                 mytext=""
                 newl += 30
             mytext = mytext + text[11]+" "
             prevy=y
     print(mytext)
-    Label(root,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
-    #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
+    Label(window,text=mytext,bg="white",font=('Bahnschrift',15,'bold')).place(x=450,y=newl)
+    #Label(window,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
 
 # upload button
-uploadbtn = Button(root,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'))
+uploadbtn = Button(window,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'))
 uploadbtn.place(x=153,y=300)
 
 # setting switch function:
@@ -140,7 +145,7 @@ def switch():
     if btnState is True:
         # create animated Navbar closing:
         for x in range(301):
-            navRoot.place(x=-x, y=0)
+            navwindow.place(x=-x, y=0)
             topFrame.update()
 
         # resetting widget colors:
@@ -148,21 +153,21 @@ def switch():
         instructions.config(bg="#f0f0f0",fg="black")
         homeLabel.config(bg="white")
         topFrame.config(bg="white")
-        root.config(bg="#f0f0f0")
+        window.config(bg="#f0f0f0")
 
         # turning button OFF:
         btnState = False
     else:
-        # make root dim:
+        # make window dim:
         #brandLabel.config(bg="#f0f0f0", fg="#5F5A33")
         #homeLabel.config(bg=color["nero"])
         #topFrame.config(bg=color["nero"])
-        #root.config(bg=color["nero"])
+        #window.config(bg=color["nero"])
         instructions.config(bg="#f0f0f0",fg="#858585")
         
         # created animated Navbar opening:
         for x in range(-300, 0):
-            navRoot.place(x=x, y=0)
+            navwindow.place(x=x, y=0)
             topFrame.update()
 
         # turning button ON:
@@ -170,7 +175,7 @@ def switch():
 
 
 # top navigation bar:
-topFrame = Frame(root, bg="white")
+topFrame = Frame(window, bg="white")
 topFrame.pack(side="top", fill=X)
 
 # header label text:
@@ -186,7 +191,7 @@ logo_right = Label(topFrame, image=logoright, bg="white")
 logo_right.place(x=810,y=10)
 
 # main label text:
-#brandLabel = Label(root, font="System 30", bg="#f0f0f0", fg="green")
+#brandLabel = Label(window, font="System 30", bg="#f0f0f0", fg="green")
 #brandLabel.place(x=100, y=250)
 
 # navbar button:
@@ -194,9 +199,9 @@ navbarBtn = Button(topFrame, image=navIcon, bg="white", activebackground="#1cbdb
 navbarBtn.place(x=10, y=10)
 
 # setting Navbar frame:
-navRoot = Frame(root, bg="#cecece", height=1000, width=300)
-navRoot.place(x=-300, y=0)
-Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
+navwindow = Frame(window, bg="#cecece", height=1000, width=300)
+navwindow.place(x=-300, y=0)
+Label(navwindow, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
 
 # set y-coordinate of Navbar widgets:
 y = 80
@@ -206,11 +211,11 @@ options = ["Home", "Settings", "Help", "About"]
 
 # Navbar Option Buttons:
 for i in range(4):
-    Button(navRoot, text=options[i], font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0).place(x=25, y=y)
+    Button(navwindow, text=options[i], font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0).place(x=25, y=y)
     y += 40
 
 # Navbar Close Button:
-closeBtn = Button(navRoot, image=closeIcon, bg="white", activebackground="#1cbdbd", bd=0, command=switch)
+closeBtn = Button(navwindow, image=closeIcon, bg="white", activebackground="#1cbdbd", bd=0, command=switch)
 closeBtn.place(x=250, y=10)
 
 # 
@@ -218,7 +223,7 @@ closeBtn.place(x=250, y=10)
 newline.pack()
 uploaded_img.pack()
 
-#uploadbtn = Button(root,text="Upload an image",command=upload,bg="#2f2f77",fg="gray",height=2,width=20,font=('Times',15,'bold')).pack()
+#uploadbtn = Button(window,text="Upload an image",command=upload,bg="#2f2f77",fg="gray",height=2,width=20,font=('Times',15,'bold')).pack()
 
 
-root.mainloop()
+window.mainloop()
