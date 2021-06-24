@@ -27,7 +27,6 @@ syllable_encoding = {}
 #assigning the syllables to integers
 for i in range(len(syllables)):
     syllable_encoding[syllables[i]] = i
-print(syllable_encoding)
 
 #encoding the label
 def encode_label(label):
