@@ -224,6 +224,17 @@ def switch():
         # turning button ON:
         btnState = True
 
+#open new window for instruction 
+def openwindow():
+    new_window= Tk()
+    new_window.eval('tk::PlaceWindow . center') #centered window
+    new_window.geometry("250x250")
+    new_window.title("Instructions")
+    new_window.resizable(False,False)
+    lbl = Label(new_window, text="Baybayin Image Converter intructions")
+    lbl.pack()
+
+
 #==================Frame 1 Homepage
 f1_box_label = tk.Label(frame1, image=box)
 f1_box_label.place(x=100,y=10)
@@ -241,7 +252,7 @@ homeLabel.pack(side="right")
 f1_btnhome = tk.Button(frame1, text='Home',command=lambda:show_frame(frame1))
 f1_btnhome.place(x=350,y=10)
 
-f1_btntranslate = tk.Button(frame1, text='Translate',command=lambda:show_frame(frame2))
+f1_btntranslate = tk.Button(frame1, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
 f1_btntranslate.place(x=450,y=10)
 
 f1_btnhelp = tk.Button(frame1, text='Help',command=lambda:show_frame(frame3))
@@ -261,7 +272,7 @@ homeLabel.pack(side="right")
 f2_btnhome = tk.Button(frame2, text='Home',command=lambda:show_frame(frame1))
 f2_btnhome.place(x=350,y=10)
 
-f2_btntranslate = tk.Button(frame2, text='Translate',command=lambda:show_frame(frame2))
+f2_btntranslate = tk.Button(frame2, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
 f2_btntranslate.place(x=450,y=10)
 
 f2_btnhelp = tk.Button(frame2, text='Help',command=lambda:show_frame(frame3))
@@ -303,7 +314,7 @@ homeLabel.pack(side="right")
 f3_btnhome = tk.Button(frame3, text='Home',command=lambda:show_frame(frame1))
 f3_btnhome.place(x=350,y=10)
 
-f3_btntranslate = tk.Button(frame3, text='Translate',command=lambda:show_frame(frame2))
+f3_btntranslate = tk.Button(frame3, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
 f3_btntranslate.place(x=450,y=10)
 
 f3_btnhelp = tk.Button(frame3, text='Help',command=lambda:show_frame(frame3))
@@ -330,7 +341,7 @@ homeLabel.pack(side="right")
 f4_btnhome = tk.Button(frame4, text='Home',command=lambda:show_frame(frame1))
 f4_btnhome.place(x=350,y=10)
 
-f4_btntranslate = tk.Button(frame4, text='Translate',command=lambda:show_frame(frame2))
+f4_btntranslate = tk.Button(frame4, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
 f4_btntranslate.place(x=450,y=10)
 
 f4_btnhelp = tk.Button(frame4, text='Help',command=lambda:show_frame(frame3))
@@ -360,7 +371,7 @@ b3 = tk.Button(navRoot, text='Help', font="BahnschriftLight 15", bg="#cecece", f
 b4 = tk.Button(navRoot, text='About', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=200)
 
 # Navbar Close Button:
-closeBtn = Button(navRoot, image=closeIcon, bg="white", activebackground="#1cbdbd", bd=0, command=switch)
+closeBtn = Button(navRoot, image=closeIcon, bg="white", activebackground="red", bd=0, command=switch)
 closeBtn.place(x=250, y=10)
 
 show_frame(frame1)
