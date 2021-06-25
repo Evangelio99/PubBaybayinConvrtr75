@@ -21,6 +21,8 @@ window = tk.Tk()
 window.rowconfigure(0, weight=1)
 window.columnconfigure(0, weight=1)
 
+#window.attributes('-alpha', 0.5)
+
 # window config
 width_of_window=900
 height_of_window=750
@@ -61,19 +63,14 @@ navbar = PhotoImage(file="navbar.png")
 red = PhotoImage(file="red.png")
 sour = PhotoImage(file="sour.png")
 folklore = PhotoImage(file="taylor.png")
+bgg = PhotoImage(file="bg.png")
 
-# assets
-box_label = Label(frame2, image=box)
-box_label.place(x=22,y=360)
-
+bg = Label(frame2, image=bgg)
+bg.place(x=0,y=0)
 
 # declaring new var for images for placing
 upload_label = Label(image=uploadbtn1)
 extract_label = Label(image=extractbtn1)
-
-# assets
-box_label = Label(frame2, image=box)
-box_label.place(x=22,y=360)
 
 # vars
 newline= Label(frame2)
@@ -136,7 +133,7 @@ def extract(path):
     #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
 
 # upload button
-uploadbtn = Button(frame2,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'))
+uploadbtn = Button(frame2,image=uploadbtn1,command=upload, borderwidth=0 ,font=('Times',15,'bold'))
 uploadbtn.place(x=153,y=300)
 
 # setting switch function:
@@ -177,6 +174,7 @@ def switch():
 #==================Frame 1 Homepage
 #f1_box_label = tk.Label(frame1, image=box)
 #f1_box_label.place(x=100,y=10)
+
 taylor1 = Label(frame1, image=red)
 taylor1.place(x=0,y=0)
 
@@ -200,6 +198,11 @@ f1_btnabout = tk.Button(frame1, text='About',command=lambda:show_frame(frame4))
 f1_btnabout.place(x=650,y=10)
 
 #==================Frame 2 Translate page
+
+# assets
+box_label = Label(frame2, image=box)
+box_label.place(x=22,y=360)
+
 topFrame = Frame(frame2, bg="white")
 topFrame.pack(side="top", fill=X)
 
