@@ -9,7 +9,7 @@ import pytesseract
 from tkinter import PhotoImage
 from tkinter.filedialog import askopenfile
 
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Kin\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
 
 # frames
 def show_frame(frame):
@@ -76,8 +76,8 @@ box_label = Label(frame2, image=box)
 box_label.place(x=22,y=360)
 
 # vars
-newline= Label(frame2)
-uploaded_img=Label(frame2)
+newline = Label(frame2)
+uploaded_img = Label(frame2)
 
 # uploading of picture
 def upload():
@@ -173,6 +173,17 @@ def switch():
         # turning button ON:
         btnState = True
 
+#open new window for instruction 
+def openwindow():
+    new_window= Tk()
+    new_window.eval('tk::PlaceWindow . center') #centered window
+    new_window.geometry("250x250")
+    new_window.title("Instructions")
+    new_window.resizable(False,False)
+    lbl = Label(new_window, text="Baybayin Image Converter intructions")
+    lbl.pack()
+
+
 
 #==================Frame 1 Homepage
 #f1_box_label = tk.Label(frame1, image=box)
@@ -190,7 +201,7 @@ homeLabel.pack(side="right")
 f1_btnhome = tk.Button(frame1, text='Home',command=lambda:show_frame(frame1))
 f1_btnhome.place(x=350,y=10)
 
-f1_btntranslate = tk.Button(frame1, text='Translate',command=lambda:show_frame(frame2))
+f1_btntranslate = tk.Button(frame1, text='Translate',command=lambda:[show_frame(frame2), openwindow()])
 f1_btntranslate.place(x=450,y=10)
 
 f1_btnhelp = tk.Button(frame1, text='Help',command=lambda:show_frame(frame3))
@@ -210,7 +221,7 @@ homeLabel.pack(side="right")
 f2_btnhome = tk.Button(frame2, text='Home',command=lambda:show_frame(frame1))
 f2_btnhome.place(x=350,y=10)
 
-f2_btntranslate = tk.Button(frame2, text='Translate',command=lambda:show_frame(frame2))
+f2_btntranslate = tk.Button(frame2, text='Translate',command=lambda:[show_frame(frame2), openwindow()])
 f2_btntranslate.place(x=450,y=10)
 
 f2_btnhelp = tk.Button(frame2, text='Help',command=lambda:show_frame(frame3))
@@ -252,7 +263,7 @@ homeLabel.pack(side="right")
 f3_btnhome = tk.Button(frame3, text='Home',command=lambda:show_frame(frame1))
 f3_btnhome.place(x=350,y=10)
 
-f3_btntranslate = tk.Button(frame3, text='Translate',command=lambda:show_frame(frame2))
+f3_btntranslate = tk.Button(frame3, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
 f3_btntranslate.place(x=450,y=10)
 
 f3_btnhelp = tk.Button(frame3, text='Help',command=lambda:show_frame(frame3))
@@ -280,7 +291,7 @@ homeLabel.pack(side="right")
 f4_btnhome = tk.Button(frame4, text='Home',command=lambda:show_frame(frame1))
 f4_btnhome.place(x=350,y=10)
 
-f4_btntranslate = tk.Button(frame4, text='Translate',command=lambda:show_frame(frame2))
+f4_btntranslate = tk.Button(frame4, text='Translate',command=lambda:[show_frame(frame2), openwindow()])
 f4_btntranslate.place(x=450,y=10)
 
 f4_btnhelp = tk.Button(frame4, text='Help',command=lambda:show_frame(frame3))
