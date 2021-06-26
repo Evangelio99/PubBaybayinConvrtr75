@@ -53,18 +53,27 @@ for frame in (frame1, frame2, frame3, frame4):
 navIcon = PhotoImage(file="menu.png")
 closeIcon = PhotoImage(file="close.png")
 uploadbtn1 = PhotoImage(file="uploadbtn.png")
-extractbtn1= PhotoImage(file="extractbtn.png")
+extractbtn1= PhotoImage(file="translatebtn.png")
 logoleft = PhotoImage(file="baybayin.png")
 logoright = PhotoImage(file="iconright.png")
 box = PhotoImage(file="box.png")
 navbar = PhotoImage(file="navbar.png")
-red = PhotoImage(file="red.png")
-sour = PhotoImage(file="sour.png")
-folklore = PhotoImage(file="taylor.png")
+#red = PhotoImage(file="red.png")
+#sour = PhotoImage(file="sour.png")
+#folklore = PhotoImage(file="taylor.png")
+frame1bg = PhotoImage(file="home_page_bg.png")
+frame2bg = PhotoImage(file="translate_page_bg.png")
+frame3bg = PhotoImage(file="help_page_bg.png")
+frame4bg = PhotoImage(file="about_page_bg.png")
+
 
 # assets
-box_label = Label(frame2, image=box)
-box_label.place(x=22,y=360)
+#box_label = Label(frame2, image=box)
+#box_label.place(x=22,y=360)
+
+# frame2 bg
+frame2bg1 = Label(frame2, image=frame2bg)
+frame2bg1.place(x=0,y=0)
 
 
 # declaring new var for images for placing
@@ -72,8 +81,8 @@ upload_label = Label(image=uploadbtn1)
 extract_label = Label(image=extractbtn1)
 
 # assets
-box_label = Label(frame2, image=box)
-box_label.place(x=22,y=360)
+#box_label = Label(frame2, image=box)
+#box_label.place(x=22,y=360)
 
 # vars
 newline = Label(frame2)
@@ -91,7 +100,7 @@ def upload():
 
         img=ImageTk.PhotoImage(resized)
         uploaded_img.configure(image=img)
-        uploaded_img.configure(background="white")
+        uploaded_img.configure(background="#cbc9c3")
         uploaded_img.image=img
         uploaded_img.place(x=22,y=405)
 
@@ -102,8 +111,8 @@ def upload():
     except:
         pass 
 
-extractBtn = Button(frame2,image=extractbtn1,state=tkinter.DISABLED, fg="gray", borderwidth=0,font=('Times',15,'bold'))
-extractBtn.place(x=600,y=300)
+extractBtn = Button(frame2,image=extractbtn1,state=tkinter.DISABLED, fg="gray", borderwidth=0,font=('Times',15,'bold'),bg="#d1d1cb")
+extractBtn.place(x=600,y=280)
 
 # extraction
 def extract(path):
@@ -136,8 +145,8 @@ def extract(path):
     #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
 
 # upload button
-uploadbtn = Button(frame2,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'))
-uploadbtn.place(x=153,y=300)
+uploadbtn = Button(frame2,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'), bg="#d1d1cb")
+uploadbtn.place(x=153,y=280)
 
 # setting switch function:
 def switch():
@@ -150,7 +159,7 @@ def switch():
 
         # resetting widget colors:
         #brandLabel.config(bg="#f0f0f0", fg="green")
-        instructions.config(bg="#f0f0f0",fg="black")
+        #instructions.config(bg="#f0f0f0",fg="black")
         homeLabel.config(bg="white")
         topFrame.config(bg="white")
         frame2.config(bg="#f0f0f0")
@@ -163,7 +172,7 @@ def switch():
         #homeLabel.config(bg=color["nero"])
         #topFrame.config(bg=color["nero"])
         #root.config(bg=color["nero"])
-        instructions.config(bg="#f0f0f0",fg="#858585")
+        #instructions.config(bg="#f0f0f0",fg="#858585")
         
         # created animated Navbar opening:
         for x in range(-300, 0):
@@ -188,8 +197,8 @@ def openwindow():
 #==================Frame 1 Homepage
 #f1_box_label = tk.Label(frame1, image=box)
 #f1_box_label.place(x=100,y=10)
-taylor1 = Label(frame1, image=red)
-taylor1.place(x=0,y=0)
+frame1bg1 = Label(frame1, image=frame1bg)
+frame1bg1.place(x=0,y=0)
 
 topFrame = Frame(frame1, bg="white")
 topFrame.pack(side="top", fill=X)
@@ -211,6 +220,8 @@ f1_btnabout = tk.Button(frame1, text='About',command=lambda:show_frame(frame4))
 f1_btnabout.place(x=650,y=10)
 
 #==================Frame 2 Translate page
+
+
 topFrame = Frame(frame2, bg="white")
 topFrame.pack(side="top", fill=X)
 
@@ -231,15 +242,15 @@ f2_btnabout = tk.Button(frame2, text='About',command=lambda:show_frame(frame4))
 f2_btnabout.place(x=650,y=10)
 
 # logo
-logo = Image.open('logo.png')
-logo = ImageTk.PhotoImage(logo)
-logo_label = Label(frame2, image=logo)
-logo_label.image = logo
-logo_label.place(x=312,y=100)
+#logo = Image.open('logo.png')
+#logo = ImageTk.PhotoImage(logo)
+#logo_label = Label(frame2, image=logo)
+#logo_label.image = logo
+#logo_label.place(x=312,y=100)
 
 # instruction label
-instructions = Label(frame2, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
-instructions.place(x=280,y=250)
+#instructions = Label(frame2, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
+#instructions.place(x=280,y=250)
 
 logo_right = Label(frame2, image=logoright, bg="white")
 logo_right.place(x=810,y=10)
@@ -247,10 +258,10 @@ logo_left = Label(frame2, image=logoleft, bg="white")
 logo_left.place(x=50,y=8)
 
 #==================Frame 3 Help page
-olivia = Label(frame3, image=sour)
-olivia.place(x=0,y=0)
+frame3bg1 = Label(frame3, image=frame3bg)
+frame3bg1.place(x=0,y=0)
 
-f3_title=  tk.Label(frame3, text='Insert Help page',font='times 35')
+f3_title=  tk.Label(frame3)
 f3_title.place(x=0,y=50)
 
 topFrame = Frame(frame3, bg="white")
@@ -273,10 +284,10 @@ f3_btnabout = tk.Button(frame3, text='About',command=lambda:show_frame(frame4))
 f3_btnabout.place(x=650,y=10)
 
 #==================Frame 4 About page
-taylor2 = Label(frame4, image=folklore)
-taylor2.place(x=0,y=0)
+frame4bg1 = Label(frame4, image=frame4bg)
+frame4bg1.place(x=0,y=0)
 
-f4_title=  tk.Label(frame4, text='Insert About page',font='times 35')
+f4_title=  tk.Label(frame4)
 f4_title.place(x=0,y=50)
 
 topFrame = Frame(frame4, bg="white")
