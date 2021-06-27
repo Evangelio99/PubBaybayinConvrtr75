@@ -24,7 +24,6 @@ window = tk.Tk()
 window.rowconfigure(0, weight=1)
 window.columnconfigure(0, weight=1)
 
-
 # window config
 width_of_window=900
 height_of_window=750
@@ -38,10 +37,6 @@ window.title('Baybayin Image Translator')
 icn=PhotoImage(file="icon.png")
 window.iconphoto(False,icn)
 window.resizable(False, False) # para mawala yung full screen button hehe
-#window.configure(bg='blue')
-
-# setting switch state:
-btnState = False
 
 # creating frames
 frame1 = tk.Frame(window)
@@ -49,6 +44,7 @@ frame2 = tk.Frame(window)
 frame3 = tk.Frame(window)
 frame4 = tk.Frame(window)
 
+# for loop for creating 4 frames
 for frame in (frame1, frame2, frame3, frame4):
     frame.grid(row=0,column=0,sticky='nsew')
 
@@ -59,30 +55,23 @@ logoleft = PhotoImage(file="baybayin.png")
 logoright = PhotoImage(file="iconright.png")
 box = PhotoImage(file="box.png")
 navbar = PhotoImage(file="navbar.png")
-#Buttons
+# buttons
 uploadbtn1 = PhotoImage(file="uploadbtn1.png")
 extractbtn1= PhotoImage(file="translatebtn1.png")
 homebtn = PhotoImage(file="homebtn.png")
 translatebtn = PhotoImage(file="translatebtn.png")
 helpbtn = PhotoImage(file="helpbtn.png")
 aboutbtn = PhotoImage(file="aboutbtn.png")
-#Backgrounds
+# backgrounds
 homepage = PhotoImage(file="home_page_bg.png")
 translate = PhotoImage(file="translate_page_bg.png")
 help = PhotoImage(file="help_page_pg.png")
 about = PhotoImage(file="about_page_bg.png")
 bgg = PhotoImage(file="bg.png")
 
+# background of Frame 1
 translate1 = Label(frame2, image=translate)
 translate1.place(x=0,y=0)
-
-
-# assets
-# box_label = Label(frame2, image=box)
-# box_label.place(x=22,y=360)
-
-# bg = Label(frame2, image=bgg)
-# bg.place(x=0,y=0)
 
 # declaring new var for images for placing
 upload_label = Label(image=uploadbtn1)
@@ -93,7 +82,6 @@ newline= Label(frame2)
 uploaded_img=Label(frame2)
 processed_img=Label(frame2) 
 
-
 #image processing and prediction
 input_shape = (64,64)
 
@@ -101,21 +89,19 @@ syllables = ["a", "ba", "dara", "ei", "ga", "ha", "ka", "kuw", "la", "ma", "na",
 
 syllable_encoding = {}
 
-newin = True
-
-#assigning the syllables to integers
+# assigning the syllables to integers
 for i in range(len(syllables)):
     syllable_encoding[syllables[i]] = i
 
-#encoding the label
+# encoding the label
 def encode_label(label):
     return syllable_encoding[label]
 
-#decoding the label
+# decoding the label
 def decode_label(i):
     return syllables[i]
 
-#extracting pixels function
+# extracting pixels function
 def extract_pixels(filename):
     # image_pil = Image.open(filename)
     # image_np = np.asarray(image_pil)
@@ -127,7 +113,7 @@ def extract_pixels(filename):
         image_res = cv2.cvtColor(image_res, cv2.COLOR_BGR2GRAY)
     return image_res / 255.0
 
-#argmax
+# argmax
 def argmax(probability_logits):
     return np.argmax(probability_logits)
 
@@ -136,7 +122,7 @@ model = tfk.models.load_model('baybayin.h5')
 def neural_net_prediction(image):
     return model.predict(np.expand_dims(image, axis=0))
 
-#predict function to use
+# predict function to use
 def predict(filename):
     return decode_label(argmax(neural_net_prediction(extract_pixels(filename))))
 
@@ -163,11 +149,11 @@ def upload():
     except:
         pass  
 
+# translate button
 extractBtn= Button(frame2,image=extractbtn1,state=tkinter.DISABLED, activebackground="#d1d1cb", fg="gray",borderwidth=0,font=('Times',15,'bold'),bg="#d1d1cb")
 extractBtn.place(x=600,y=280) 
 
-
-#for buttons and classification
+# for buttons and classification
 def classify(path):
     image = cv2.imread(path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -203,70 +189,17 @@ def classify(path):
     # extracted_text = predict(path)
     # Label(root,text=extracted_text,font=('Times',32,'bold')).pack()
 
-
-# uploadbtn = Button(frame2,image=uploadbtn1,command=upload,borderwidth=0 ,font=('Times',15,'bold'))
-# uploadbtn.place(x=153,y=280)
-
-# setting switch function:
-# def switch():
-#     global btnState
-#     if btnState is True:
-#         # create animated Navbar closing:
-#         for x in range(301):
-#             navRoot.place(x=-x, y=0)
-#             topFrame.update()
-
-#         # resetting widget colors:
-#         #brandLabel.config(bg="#f0f0f0", fg="green")
-#         instructions.config(bg="#f0f0f0",fg="black")
-#         homeLabel.config(bg="white")
-#         topFrame.config(bg="white")
-#         frame2.config(bg="#f0f0f0")
-
-#         # turning button OFF:
-#         btnState = False
-#     else:
-#         # make root dim:
-#         #brandLabel.config(bg="#f0f0f0", fg="#5F5A33")
-#         #homeLabel.config(bg=color["nero"])
-#         #topFrame.config(bg=color["nero"])
-#         #root.config(bg=color["nero"])
-#         instructions.config(bg="#f0f0f0",fg="#858585")
-        
-#         # created animated Navbar opening:
-#         for x in range(-300, 0):
-#             navRoot.place(x=x, y=0)
-#             topFrame.update()
-
-#         # turning button ON:
-#         btnState = True
-
-
-#open new window for instruction 
+# open message box instructions in translate page
 def openwindow():
-
-    global new_window
     messagebox.showinfo("Instructions", "Upload Baybayin Image/s only. There should be enough spaces between Baybayin scripts and it should not be small and pixelated for better translation.")
-    # newin = True
-    # new_window= Tk()
-    # new_window.eval('tk::PlaceWindow . center') #centered window
-    # new_window.geometry("250x250")
-    # new_window.title("Instructions")
-    # new_window.resizable(False,False)
-    # lbl = Label(new_window, text="Baybayin Image Converter intructions")
-    # lbl.pack()
 
-# def destroywindow():
-    # new_window.destroy
-    # if newin is True:
-    #     new_window.destroy
-
+#==============================================================FRAMES=======================================================================
 #==================Frame 1 Homepage
-# f1_box_label = tk.Label(frame1, image=box)
-# f1_box_label.place(x=100,y=10)
+# homepage background
 homepage1 = Label(frame1, image=homepage)
 homepage1.place(x=0,y=0)
 
+# static buttons
 f1_btnhome = tk.Button(frame1, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
 f1_btnhome.place(x=263,y=37)
 
@@ -279,12 +212,15 @@ f1_btnhelp.place(x=593,y=39)
 f1_btnabout = tk.Button(frame1, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
 f1_btnabout.place(x=730,y=38)
 
-#==================Frame 2 Translate page
-#Bg is at line 102 and 103
 
+#==================Frame 2 Translate page
+#Bg is at line 72 and 73 ata
+
+# upload button of Baybayin Image
 uploadbtn = Button(frame2,image=uploadbtn1,activebackground="#d1d1cb",command=upload,borderwidth=0,bg="#d1d1cb",font=('Times',15,'bold'))
 uploadbtn.place(x=153,y=280)
 
+# static buttons
 f2_btnhome = tk.Button(frame2, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
 f2_btnhome.place(x=263,y=37)
 
@@ -297,29 +233,13 @@ f2_btnhelp.place(x=593,y=39)
 f2_btnabout = tk.Button(frame2, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
 f2_btnabout.place(x=730,y=38)
 
-# # logo
-# logo = Image.open('logo.png')
-# logo = ImageTk.PhotoImage(logo)
-# logo_label = Label(frame2, image=logo)
-# logo_label.image = logo
-# logo_label.place(x=312,y=100)
-
-# instruction label
-# instructions = Label(frame2, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
-# instructions.place(x=280,y=250)
-
-# logo_right = Label(frame2, image=logoright, bg="white")
-# logo_right.place(x=810,y=10)
-# logo_left = Label(frame2, image=logoleft, bg="white")
-# logo_left.place(x=50,y=8)
 
 #==================Frame 3 Help page
+# help background
 help1 = Label(frame3, image=help)
 help1.place(x=0,y=0)
 
-# f3_title=  tk.Label(frame3, text='Insert Help page',font='times 35')
-# f3_title.place(x=0,y=50)
-
+# static buttons
 f3_btnhome = tk.Button(frame3, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
 f3_btnhome.place(x=263,y=37)
 
@@ -332,13 +252,13 @@ f3_btnhelp.place(x=593,y=39)
 f3_btnabout = tk.Button(frame3, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
 f3_btnabout.place(x=730,y=38)
 
+
 #==================Frame 4 About page
+# about us background
 about1 = Label(frame4, image=about)
 about1.place(x=0,y=0)
 
-# f4_title=  tk.Label(frame4, text='Insert About page',font='times 35')
-# f4_title.place(x=0,y=50)
-
+# static buttons
 f4_btnhome = tk.Button(frame4, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
 f4_btnhome.place(x=263,y=37)
 
@@ -350,30 +270,6 @@ f4_btnhelp.place(x=593,y=39)
 
 f4_btnabout = tk.Button(frame4, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
 f4_btnabout.place(x=730,y=38)
-
-# navbar button:
-# navbarBtn = Button(frame2, image=navIcon, bg="white", activebackground="#1cbdbd", bd=0, padx=20, command=switch)
-# navbarBtn.place(x=10, y=10)
-
-# # setting Navbar frame:
-# navRoot = Frame(frame2, bg="#cecece", height=1000, width=300)
-# navRoot.place(x=-300, y=0)
-# Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
-
-# # set y-coordinate of Navbar widgets:
-# y = 80
-
-# # option in the navbar:
-
-# # Navbar Option Buttons:
-# b1 = tk.Button(navRoot, text='Home', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame1)).place(x=25, y=80)
-# b2 = tk.Button(navRoot, text='Translate', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame2)).place(x=25, y=120)
-# b3 = tk.Button(navRoot, text='Help', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=160)
-# b4 = tk.Button(navRoot, text='About', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=200)
-
-# # Navbar Close Button:
-# closeBtn = Button(navRoot, image=closeIcon, bg="white", activebackground="red", bd=0, command=switch)
-# closeBtn.place(x=250, y=10)
 
 show_frame(frame1)
 
