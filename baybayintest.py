@@ -11,6 +11,7 @@ import numpy as np
 import tensorflow.keras as tfk
 import cv2
 from tkinter.filedialog import askopenfile
+from tkinter import messagebox
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
@@ -66,13 +67,14 @@ translatebtn = PhotoImage(file="translatebtn.png")
 helpbtn = PhotoImage(file="helpbtn.png")
 aboutbtn = PhotoImage(file="aboutbtn.png")
 #Backgrounds
-homepage = PhotoImage(file="homepage_with_buttons.png")
+homepage = PhotoImage(file="home_page_bg.png")
 translate = PhotoImage(file="translate_page_bg.png")
 help = PhotoImage(file="help_page_pg.png")
 about = PhotoImage(file="about_page_bg.png")
 bgg = PhotoImage(file="bg.png")
 
-
+translate1 = Label(frame2, image=translate)
+translate1.place(x=0,y=0)
 
 
 # assets
@@ -98,6 +100,8 @@ input_shape = (64,64)
 syllables = ["a", "ba", "dara", "ei", "ga", "ha", "ka", "kuw", "la", "ma", "na", "nga", "ou", "pa", "sa", "ta", "tul", "wa", "ya"]
 
 syllable_encoding = {}
+
+newin = True
 
 #assigning the syllables to integers
 for i in range(len(syllables)):
@@ -143,14 +147,14 @@ def upload():
         image=Image.open(path)
 
         # resize image
-        resized = image.resize((400, 317), Image.ANTIALIAS)
+        resized = image.resize((370, 317), Image.ANTIALIAS)
 
         img=ImageTk.PhotoImage(resized)
         uploaded_img.configure(image=img)
         uploaded_img.image=img
         uploaded_img.configure(background="white")
         uploaded_img.image=img
-        uploaded_img.place(x=22,y=405)
+        uploaded_img.place(x=40,y=373)
 
         # show_extract_button(path)
         extractBtn["state"] = tkinter.NORMAL
@@ -159,8 +163,8 @@ def upload():
     except:
         pass  
 
-extractBtn= Button(frame2,image=extractbtn1,state=tkinter.DISABLED, fg="gray",borderwidth=0,font=('Times',15,'bold'))
-extractBtn.place(x=600,y=300) 
+extractBtn= Button(frame2,image=extractbtn1,state=tkinter.DISABLED, activebackground="#d1d1cb", fg="gray",borderwidth=0,font=('Times',15,'bold'),bg="#d1d1cb")
+extractBtn.place(x=600,y=280) 
 
 
 #for buttons and classification
@@ -186,18 +190,22 @@ def classify(path):
 
 
     img = Image.fromarray(image)
-    imgtk = ImageTk.PhotoImage(image=img)
+
+    # resize image
+    resized1 = img.resize((360, 200), Image.ANTIALIAS)
+
+    imgtk = ImageTk.PhotoImage(image=resized1)
     processed_img.configure(image=imgtk)
     processed_img.image=imgtk
-    processed_img.place(x=450,y=420)
+    processed_img.place(x=492,y=433)
     # cv2.imshow('image', image)
     # cv2.waitKey()
     # extracted_text = predict(path)
     # Label(root,text=extracted_text,font=('Times',32,'bold')).pack()
 
 
-uploadbtn = Button(frame2,image=uploadbtn1,command=upload,borderwidth=0 ,font=('Times',15,'bold'))
-uploadbtn.place(x=153,y=300)
+# uploadbtn = Button(frame2,image=uploadbtn1,command=upload,borderwidth=0 ,font=('Times',15,'bold'))
+# uploadbtn.place(x=153,y=280)
 
 # setting switch function:
 # def switch():
@@ -233,54 +241,61 @@ uploadbtn.place(x=153,y=300)
 #         # turning button ON:
 #         btnState = True
 
+
 #open new window for instruction 
 def openwindow():
-    new_window= Tk()
-    new_window.eval('tk::PlaceWindow . center') #centered window
-    new_window.geometry("250x250")
-    new_window.title("Instructions")
-    new_window.resizable(False,False)
-    lbl = Label(new_window, text="Baybayin Image Converter intructions")
-    lbl.pack()
 
+    global new_window
+    messagebox.showinfo("Instructions", "Upload Baybayin Image/s only. There should be enough spaces between Baybayin scripts and it should not be small and pixelated for better translation.")
+    # newin = True
+    # new_window= Tk()
+    # new_window.eval('tk::PlaceWindow . center') #centered window
+    # new_window.geometry("250x250")
+    # new_window.title("Instructions")
+    # new_window.resizable(False,False)
+    # lbl = Label(new_window, text="Baybayin Image Converter intructions")
+    # lbl.pack()
+
+# def destroywindow():
+    # new_window.destroy
+    # if newin is True:
+    #     new_window.destroy
 
 #==================Frame 1 Homepage
 # f1_box_label = tk.Label(frame1, image=box)
 # f1_box_label.place(x=100,y=10)
-
-uploadbtn = Button(frame2,image=uploadbtn1,command=upload,borderwidth=0 ,font=('Times',15,'bold'))
-uploadbtn.place(x=153,y=300)
-
 homepage1 = Label(frame1, image=homepage)
 homepage1.place(x=0,y=0)
 
 f1_btnhome = tk.Button(frame1, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
-f1_btnhome.place(x=280,y=40)
+f1_btnhome.place(x=263,y=37)
 
 f1_btntranslate = tk.Button(frame1, image=translatebtn,bg="white",borderwidth=0 ,command=lambda:[show_frame(frame2),openwindow()])
-f1_btntranslate.place(x=450,y=10)
+f1_btntranslate.place(x=394,y=35)
 
 f1_btnhelp = tk.Button(frame1, image=helpbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame3))
-f1_btnhelp.place(x=550,y=10)
+f1_btnhelp.place(x=593,y=39)
 
 f1_btnabout = tk.Button(frame1, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
-f1_btnabout.place(x=650,y=10)
+f1_btnabout.place(x=730,y=38)
 
 #==================Frame 2 Translate page
-translate1 = Label(frame2, image=translate)
-translate1.place(x=0,y=0)
+#Bg is at line 102 and 103
 
-f2_btnhome = tk.Button(frame2, text='Home',command=lambda:show_frame(frame1))
-f2_btnhome.place(x=350,y=10)
+uploadbtn = Button(frame2,image=uploadbtn1,activebackground="#d1d1cb",command=upload,borderwidth=0,bg="#d1d1cb",font=('Times',15,'bold'))
+uploadbtn.place(x=153,y=280)
 
-f2_btntranslate = tk.Button(frame2, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
-f2_btntranslate.place(x=450,y=10)
+f2_btnhome = tk.Button(frame2, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
+f2_btnhome.place(x=263,y=37)
 
-f2_btnhelp = tk.Button(frame2, text='Help',command=lambda:show_frame(frame3))
-f2_btnhelp.place(x=550,y=10)
+f2_btntranslate = tk.Button(frame2, image=translatebtn,bg="white",borderwidth=0 ,command=lambda:[show_frame(frame2),openwindow()])
+f2_btntranslate.place(x=394,y=35)
 
-f2_btnabout = tk.Button(frame2, text='About',command=lambda:show_frame(frame4))
-f2_btnabout.place(x=650,y=10)
+f2_btnhelp = tk.Button(frame2, image=helpbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame3))
+f2_btnhelp.place(x=593,y=39)
+
+f2_btnabout = tk.Button(frame2, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
+f2_btnabout.place(x=730,y=38)
 
 # # logo
 # logo = Image.open('logo.png')
@@ -305,17 +320,17 @@ help1.place(x=0,y=0)
 # f3_title=  tk.Label(frame3, text='Insert Help page',font='times 35')
 # f3_title.place(x=0,y=50)
 
-f3_btnhome = tk.Button(frame3, text='Home',command=lambda:show_frame(frame1))
-f3_btnhome.place(x=350,y=10)
+f3_btnhome = tk.Button(frame3, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
+f3_btnhome.place(x=263,y=37)
 
-f3_btntranslate = tk.Button(frame3, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
-f3_btntranslate.place(x=450,y=10)
+f3_btntranslate = tk.Button(frame3, image=translatebtn,bg="white",borderwidth=0 ,command=lambda:[show_frame(frame2),openwindow()])
+f3_btntranslate.place(x=394,y=35)
 
-f3_btnhelp = tk.Button(frame3, text='Help',command=lambda:show_frame(frame3))
-f3_btnhelp.place(x=550,y=10)
+f3_btnhelp = tk.Button(frame3, image=helpbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame3))
+f3_btnhelp.place(x=593,y=39)
 
-f3_btnabout = tk.Button(frame3, text='About',command=lambda:show_frame(frame4))
-f3_btnabout.place(x=650,y=10)
+f3_btnabout = tk.Button(frame3, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
+f3_btnabout.place(x=730,y=38)
 
 #==================Frame 4 About page
 about1 = Label(frame4, image=about)
@@ -324,17 +339,17 @@ about1.place(x=0,y=0)
 # f4_title=  tk.Label(frame4, text='Insert About page',font='times 35')
 # f4_title.place(x=0,y=50)
 
-f4_btnhome = tk.Button(frame4, text='Home',command=lambda:show_frame(frame1))
-f4_btnhome.place(x=350,y=10)
+f4_btnhome = tk.Button(frame4, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
+f4_btnhome.place(x=263,y=37)
 
-f4_btntranslate = tk.Button(frame4, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
-f4_btntranslate.place(x=450,y=10)
+f4_btntranslate = tk.Button(frame4, image=translatebtn,bg="white",borderwidth=0 ,command=lambda:[show_frame(frame2),openwindow()])
+f4_btntranslate.place(x=394,y=35)
 
-f4_btnhelp = tk.Button(frame4, text='Help',command=lambda:show_frame(frame3))
-f4_btnhelp.place(x=550,y=10)
+f4_btnhelp = tk.Button(frame4, image=helpbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame3))
+f4_btnhelp.place(x=593,y=39)
 
-f4_btnabout = tk.Button(frame4, text='About',command=lambda:show_frame(frame4))
-f4_btnabout.place(x=650,y=10)
+f4_btnabout = tk.Button(frame4, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
+f4_btnabout.place(x=730,y=38)
 
 # navbar button:
 # navbarBtn = Button(frame2, image=navIcon, bg="white", activebackground="#1cbdbd", bd=0, padx=20, command=switch)
