@@ -52,7 +52,7 @@ for frame in (frame1, frame2, frame3, frame4):
 # loading of images:
 navIcon = PhotoImage(file="menu.png")
 closeIcon = PhotoImage(file="close.png")
-uploadbtn1 = PhotoImage(file="uploadbtn.png")
+uploadbtn1 = PhotoImage(file="uploadbtn1.png")
 extractbtn1= PhotoImage(file="translatebtn.png")
 logoleft = PhotoImage(file="baybayin.png")
 logoright = PhotoImage(file="iconright.png")
@@ -145,7 +145,7 @@ def extract(path):
     #Label(root,text=mytext,font=('Times',15,'bold')).pack(padx=5, pady=30, side=RIGHT)
 
 # upload button
-uploadbtn = Button(frame2,image=uploadbtn1,command=upload, borderwidth=0 ,fg="gray",font=('Times',15,'bold'), bg="#d1d1cb")
+uploadbtn = Button(frame2,image=uploadbtn1,command=upload, borderwidth=0,fg="gray",font=('Times',15,'bold'), bg="#d1d1cb")
 uploadbtn.place(x=153,y=280)
 
 # setting switch function:
@@ -157,7 +157,7 @@ def switch():
             navRoot.place(x=-x, y=0)
             topFrame.update()
 
-        # resetting widget colors:
+        #resetting widget colors:
         #brandLabel.config(bg="#f0f0f0", fg="green")
         #instructions.config(bg="#f0f0f0",fg="black")
         homeLabel.config(bg="white")
