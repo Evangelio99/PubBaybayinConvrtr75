@@ -52,7 +52,7 @@ for frame in (frame1, frame2, frame3, frame4):
 # loading of images:
 navIcon = PhotoImage(file="menu.png")
 closeIcon = PhotoImage(file="close.png")
-uploadbtn1 = PhotoImage(file="uploadbtn1.png")
+uploadbtn1 = PhotoImage(file="uploadbtn.png")
 extractbtn1= PhotoImage(file="translatebtn.png")
 logoleft = PhotoImage(file="baybayin.png")
 logoright = PhotoImage(file="iconright.png")
