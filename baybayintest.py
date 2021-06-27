@@ -54,21 +54,30 @@ for frame in (frame1, frame2, frame3, frame4):
 # loading of images:
 navIcon = PhotoImage(file="menu.png")
 closeIcon = PhotoImage(file="close.png")
-uploadbtn1 = PhotoImage(file="uploadbtn.png")
-extractbtn1= PhotoImage(file="extractbtn.png")
 logoleft = PhotoImage(file="baybayin.png")
 logoright = PhotoImage(file="iconright.png")
 box = PhotoImage(file="box.png")
 navbar = PhotoImage(file="navbar.png")
-red = PhotoImage(file="red.png")
-sour = PhotoImage(file="sour.png")
-folklore = PhotoImage(file="taylor.png")
+#Buttons
+uploadbtn1 = PhotoImage(file="uploadbtn1.png")
+extractbtn1= PhotoImage(file="translatebtn1.png")
+homebtn = PhotoImage(file="homebtn.png")
+translatebtn = PhotoImage(file="translatebtn.png")
+helpbtn = PhotoImage(file="helpbtn.png")
+aboutbtn = PhotoImage(file="aboutbtn.png")
+#Backgrounds
+homepage = PhotoImage(file="homepage_with_buttons.png")
+translate = PhotoImage(file="translate_page_bg.png")
+help = PhotoImage(file="help_page_pg.png")
+about = PhotoImage(file="about_page_bg.png")
 bgg = PhotoImage(file="bg.png")
 
 
+
+
 # assets
-box_label = Label(frame2, image=box)
-box_label.place(x=22,y=360)
+# box_label = Label(frame2, image=box)
+# box_label.place(x=22,y=360)
 
 # bg = Label(frame2, image=bgg)
 # bg.place(x=0,y=0)
@@ -191,38 +200,38 @@ uploadbtn = Button(frame2,image=uploadbtn1,command=upload,borderwidth=0 ,font=('
 uploadbtn.place(x=153,y=300)
 
 # setting switch function:
-def switch():
-    global btnState
-    if btnState is True:
-        # create animated Navbar closing:
-        for x in range(301):
-            navRoot.place(x=-x, y=0)
-            topFrame.update()
+# def switch():
+#     global btnState
+#     if btnState is True:
+#         # create animated Navbar closing:
+#         for x in range(301):
+#             navRoot.place(x=-x, y=0)
+#             topFrame.update()
 
-        # resetting widget colors:
-        #brandLabel.config(bg="#f0f0f0", fg="green")
-        instructions.config(bg="#f0f0f0",fg="black")
-        homeLabel.config(bg="white")
-        topFrame.config(bg="white")
-        frame2.config(bg="#f0f0f0")
+#         # resetting widget colors:
+#         #brandLabel.config(bg="#f0f0f0", fg="green")
+#         instructions.config(bg="#f0f0f0",fg="black")
+#         homeLabel.config(bg="white")
+#         topFrame.config(bg="white")
+#         frame2.config(bg="#f0f0f0")
 
-        # turning button OFF:
-        btnState = False
-    else:
-        # make root dim:
-        #brandLabel.config(bg="#f0f0f0", fg="#5F5A33")
-        #homeLabel.config(bg=color["nero"])
-        #topFrame.config(bg=color["nero"])
-        #root.config(bg=color["nero"])
-        instructions.config(bg="#f0f0f0",fg="#858585")
+#         # turning button OFF:
+#         btnState = False
+#     else:
+#         # make root dim:
+#         #brandLabel.config(bg="#f0f0f0", fg="#5F5A33")
+#         #homeLabel.config(bg=color["nero"])
+#         #topFrame.config(bg=color["nero"])
+#         #root.config(bg=color["nero"])
+#         instructions.config(bg="#f0f0f0",fg="#858585")
         
-        # created animated Navbar opening:
-        for x in range(-300, 0):
-            navRoot.place(x=x, y=0)
-            topFrame.update()
+#         # created animated Navbar opening:
+#         for x in range(-300, 0):
+#             navRoot.place(x=x, y=0)
+#             topFrame.update()
 
-        # turning button ON:
-        btnState = True
+#         # turning button ON:
+#         btnState = True
 
 #open new window for instruction 
 def openwindow():
@@ -236,38 +245,30 @@ def openwindow():
 
 
 #==================Frame 1 Homepage
-f1_box_label = tk.Label(frame1, image=box)
-f1_box_label.place(x=100,y=10)
+# f1_box_label = tk.Label(frame1, image=box)
+# f1_box_label.place(x=100,y=10)
 
-taylor1 = Label(frame1, image=red)
-taylor1.place(x=0,y=0)
+uploadbtn = Button(frame2,image=uploadbtn1,command=upload,borderwidth=0 ,font=('Times',15,'bold'))
+uploadbtn.place(x=153,y=300)
 
-topFrame = Frame(frame1, bg="white")
-topFrame.pack(side="top", fill=X)
+homepage1 = Label(frame1, image=homepage)
+homepage1.place(x=0,y=0)
 
-# header label text:
-homeLabel = Label(topFrame, font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
-homeLabel.pack(side="right")
+f1_btnhome = tk.Button(frame1, image=homebtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame1))
+f1_btnhome.place(x=280,y=40)
 
-f1_btnhome = tk.Button(frame1, text='Home',command=lambda:show_frame(frame1))
-f1_btnhome.place(x=350,y=10)
-
-f1_btntranslate = tk.Button(frame1, text='Translate',command=lambda:[show_frame(frame2),openwindow()])
+f1_btntranslate = tk.Button(frame1, image=translatebtn,bg="white",borderwidth=0 ,command=lambda:[show_frame(frame2),openwindow()])
 f1_btntranslate.place(x=450,y=10)
 
-f1_btnhelp = tk.Button(frame1, text='Help',command=lambda:show_frame(frame3))
+f1_btnhelp = tk.Button(frame1, image=helpbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame3))
 f1_btnhelp.place(x=550,y=10)
 
-f1_btnabout = tk.Button(frame1, text='About',command=lambda:show_frame(frame4))
+f1_btnabout = tk.Button(frame1, image=aboutbtn,bg="white",borderwidth=0 ,command=lambda:show_frame(frame4))
 f1_btnabout.place(x=650,y=10)
 
 #==================Frame 2 Translate page
-topFrame = Frame(frame2, bg="white")
-topFrame.pack(side="top", fill=X)
-
-# header label text:
-homeLabel = Label(topFrame, font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
-homeLabel.pack(side="right")
+translate1 = Label(frame2, image=translate)
+translate1.place(x=0,y=0)
 
 f2_btnhome = tk.Button(frame2, text='Home',command=lambda:show_frame(frame1))
 f2_btnhome.place(x=350,y=10)
@@ -281,35 +282,28 @@ f2_btnhelp.place(x=550,y=10)
 f2_btnabout = tk.Button(frame2, text='About',command=lambda:show_frame(frame4))
 f2_btnabout.place(x=650,y=10)
 
-# logo
-logo = Image.open('logo.png')
-logo = ImageTk.PhotoImage(logo)
-logo_label = Label(frame2, image=logo)
-logo_label.image = logo
-logo_label.place(x=312,y=100)
+# # logo
+# logo = Image.open('logo.png')
+# logo = ImageTk.PhotoImage(logo)
+# logo_label = Label(frame2, image=logo)
+# logo_label.image = logo
+# logo_label.place(x=312,y=100)
 
 # instruction label
-instructions = Label(frame2, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
-instructions.place(x=280,y=250)
+# instructions = Label(frame2, text="Select an Image file on your computer to extract all its text", font=('Bahnschrift',10),bg="#f0f0f0",fg="black")
+# instructions.place(x=280,y=250)
 
-logo_right = Label(frame2, image=logoright, bg="white")
-logo_right.place(x=810,y=10)
-logo_left = Label(frame2, image=logoleft, bg="white")
-logo_left.place(x=50,y=8)
+# logo_right = Label(frame2, image=logoright, bg="white")
+# logo_right.place(x=810,y=10)
+# logo_left = Label(frame2, image=logoleft, bg="white")
+# logo_left.place(x=50,y=8)
 
 #==================Frame 3 Help page
-olivia = Label(frame3, image=sour)
-olivia.place(x=0,y=0)
+help1 = Label(frame3, image=help)
+help1.place(x=0,y=0)
 
-f3_title=  tk.Label(frame3, text='Insert Help page',font='times 35')
-f3_title.place(x=0,y=50)
-
-topFrame = Frame(frame3, bg="white")
-topFrame.pack(side="top", fill=X)
-
-# header label text:
-homeLabel = Label(topFrame, font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
-homeLabel.pack(side="right")
+# f3_title=  tk.Label(frame3, text='Insert Help page',font='times 35')
+# f3_title.place(x=0,y=50)
 
 f3_btnhome = tk.Button(frame3, text='Home',command=lambda:show_frame(frame1))
 f3_btnhome.place(x=350,y=10)
@@ -324,19 +318,11 @@ f3_btnabout = tk.Button(frame3, text='About',command=lambda:show_frame(frame4))
 f3_btnabout.place(x=650,y=10)
 
 #==================Frame 4 About page
-taylor2 = Label(frame4, image=folklore)
-taylor2.place(x=0,y=0)
+about1 = Label(frame4, image=about)
+about1.place(x=0,y=0)
 
-f4_title=  tk.Label(frame4, text='Insert About page',font='times 35')
-f4_title.place(x=0,y=50)
-
-topFrame = Frame(frame4, bg="white")
-topFrame.pack(side="top", fill=X)
-
-# header label text:
-
-homeLabel = Label(topFrame, font="Bahnschrift 15", bg="white", fg="gray17", height=2, padx=20)
-homeLabel.pack(side="right")
+# f4_title=  tk.Label(frame4, text='Insert About page',font='times 35')
+# f4_title.place(x=0,y=50)
 
 f4_btnhome = tk.Button(frame4, text='Home',command=lambda:show_frame(frame1))
 f4_btnhome.place(x=350,y=10)
@@ -351,28 +337,28 @@ f4_btnabout = tk.Button(frame4, text='About',command=lambda:show_frame(frame4))
 f4_btnabout.place(x=650,y=10)
 
 # navbar button:
-navbarBtn = Button(frame2, image=navIcon, bg="white", activebackground="#1cbdbd", bd=0, padx=20, command=switch)
-navbarBtn.place(x=10, y=10)
+# navbarBtn = Button(frame2, image=navIcon, bg="white", activebackground="#1cbdbd", bd=0, padx=20, command=switch)
+# navbarBtn.place(x=10, y=10)
 
-# setting Navbar frame:
-navRoot = Frame(frame2, bg="#cecece", height=1000, width=300)
-navRoot.place(x=-300, y=0)
-Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
+# # setting Navbar frame:
+# navRoot = Frame(frame2, bg="#cecece", height=1000, width=300)
+# navRoot.place(x=-300, y=0)
+# Label(navRoot, font="Bahnschrift 15", bg="white", fg="black", height=2, width=300, padx=20).place(x=0, y=0)
 
-# set y-coordinate of Navbar widgets:
-y = 80
+# # set y-coordinate of Navbar widgets:
+# y = 80
 
-# option in the navbar:
+# # option in the navbar:
 
-# Navbar Option Buttons:
-b1 = tk.Button(navRoot, text='Home', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame1)).place(x=25, y=80)
-b2 = tk.Button(navRoot, text='Translate', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame2)).place(x=25, y=120)
-b3 = tk.Button(navRoot, text='Help', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=160)
-b4 = tk.Button(navRoot, text='About', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=200)
+# # Navbar Option Buttons:
+# b1 = tk.Button(navRoot, text='Home', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame1)).place(x=25, y=80)
+# b2 = tk.Button(navRoot, text='Translate', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame2)).place(x=25, y=120)
+# b3 = tk.Button(navRoot, text='Help', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=160)
+# b4 = tk.Button(navRoot, text='About', font="BahnschriftLight 15", bg="#cecece", fg="white", activebackground="#9c9c9c", activeforeground="#1cbdbd", bd=0, command=lambda:show_frame(frame3)).place(x=25, y=200)
 
-# Navbar Close Button:
-closeBtn = Button(navRoot, image=closeIcon, bg="white", activebackground="red", bd=0, command=switch)
-closeBtn.place(x=250, y=10)
+# # Navbar Close Button:
+# closeBtn = Button(navRoot, image=closeIcon, bg="white", activebackground="red", bd=0, command=switch)
+# closeBtn.place(x=250, y=10)
 
 show_frame(frame1)
 
