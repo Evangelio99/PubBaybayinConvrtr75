@@ -4,7 +4,6 @@ import tkinter
 import tkinter as tk
 from PIL import ImageTk, Image
 from numpy import left_shift
-import pytesseract
 from tkinter import PhotoImage
 import tensorflow as tf
 import numpy as np
@@ -12,8 +11,6 @@ import tensorflow.keras as tfk
 import cv2
 from tkinter.filedialog import askopenfile
 from tkinter import messagebox
-
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
 # frames
 def show_frame(frame):
