@@ -34,7 +34,7 @@ y_coordinate=(screen_height/2)-(height_of_window/2)+395
 window.geometry("%dx%d+%d+%d"%(width_of_window,height_of_window,x_coordinate,y_coordinate))
 
 window.title('Baybayin Image Translator')
-icn=PhotoImage(file="icon.png")
+icn=PhotoImage(file="Assets/icon.png")
 window.iconphoto(False,icn)
 window.resizable(False, False) # para mawala yung full screen button hehe
 
@@ -49,25 +49,25 @@ for frame in (frame1, frame2, frame3, frame4):
     frame.grid(row=0,column=0,sticky='nsew')
 
 # loading of images:
-navIcon = PhotoImage(file="menu.png")
-closeIcon = PhotoImage(file="close.png")
-logoleft = PhotoImage(file="baybayin.png")
-logoright = PhotoImage(file="iconright.png")
-box = PhotoImage(file="box.png")
-navbar = PhotoImage(file="navbar.png")
+navIcon = PhotoImage(file="Assets/menu.png")
+closeIcon = PhotoImage(file="Assets/close.png")
+logoleft = PhotoImage(file="Assets/baybayin.png")
+logoright = PhotoImage(file="Assets/iconright.png")
+box = PhotoImage(file="Assets/box.png")
+navbar = PhotoImage(file="Assets/navbar.png")
 # buttons
-uploadbtn1 = PhotoImage(file="uploadbtn1.png")
-extractbtn1= PhotoImage(file="translatebtn1.png")
-homebtn = PhotoImage(file="homebtn.png")
-translatebtn = PhotoImage(file="translatebtn.png")
-helpbtn = PhotoImage(file="helpbtn.png")
-aboutbtn = PhotoImage(file="aboutbtn.png")
+uploadbtn1 = PhotoImage(file="Assets/uploadbtn1.png")
+extractbtn1= PhotoImage(file="Assets/translatebtn1.png")
+homebtn = PhotoImage(file="Assets/homebtn.png")
+translatebtn = PhotoImage(file="Assets/translatebtn.png")
+helpbtn = PhotoImage(file="Assets/helpbtn.png")
+aboutbtn = PhotoImage(file="Assets/aboutbtn.png")
 # backgrounds
-homepage = PhotoImage(file="home_page_bg.png")
-translate = PhotoImage(file="translate_page_bg.png")
-help = PhotoImage(file="help_page_pg.png")
-about = PhotoImage(file="about_page_bg.png")
-bgg = PhotoImage(file="bg.png")
+homepage = PhotoImage(file="Assets/home_page_bg.png")
+translate = PhotoImage(file="Assets/translate_page_bg.png")
+help = PhotoImage(file="Assets/help_page_pg.png")
+about = PhotoImage(file="Assets/about_page_bg.png")
+bgg = PhotoImage(file="Assets/bg.png")
 
 # background of Frame 1
 translate1 = Label(frame2, image=translate)
