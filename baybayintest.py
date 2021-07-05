@@ -139,9 +139,13 @@ def upload():
         uploaded_img.image=img
         uploaded_img.place(x=40,y=373)
 
+        # remove the current processed image
+        processed_img.configure(image='')
+
         # show_extract_button(path)
         extractBtn["state"] = tkinter.NORMAL
         extractBtn["command"] = lambda: classify(path)
+
 
     except:
         pass  
