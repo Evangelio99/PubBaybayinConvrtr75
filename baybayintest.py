@@ -172,8 +172,6 @@ def classify(path):
             crop_img = image[y:y+h, x:x+w]
             cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 2)
             cv2.putText(image, predict(crop_img), (x,y+h + 13), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (50, 205, 50), 1)
-        # plt.imshow(crop_img)
-        # plt.show()
 
 
     img = Image.fromarray(image)
@@ -181,6 +179,7 @@ def classify(path):
     # resize image
     resized1 = img.resize((360, 200), Image.ANTIALIAS)
 
+    # convert cv image to ImageTk
     imgtk = ImageTk.PhotoImage(image=resized1)
     processed_img.configure(image=imgtk)
     processed_img.image=imgtk
